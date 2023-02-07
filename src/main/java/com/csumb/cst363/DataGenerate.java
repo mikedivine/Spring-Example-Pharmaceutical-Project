@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-
-
 /*
   A program to generate 100 random patients,
   10 random doctors
@@ -20,9 +17,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class DataGenerate {
 
-  Patient patient;
-  Doctor doctor;
-  Prescription prescription;
   static String[] listOfFNames;
   static String[] listOfLNames;
   static String[] specialties;
@@ -58,7 +52,7 @@ public class DataGenerate {
   public void addPrescription() {
     Prescription prescription = getPrescription();
 
-    try (Connection con = DriverManager.getConnection(DBURL, USERID, PASSWORD);) {
+    try (Connection con = DriverManager.getConnection(DBURL, USERID, PASSWORD)) {
       PreparedStatement ps = con.prepareStatement("INSERT INTO prescriptions(patientSSN, doctorSSN, drugID, datePrescribed, Qty) values(?, ?, ?, ?, ?)");
       ps.setString(1, prescription.getPatientSSN());
       ps.setString(2, prescription.getDoctorSSN());
@@ -76,7 +70,7 @@ public class DataGenerate {
 
     Doctor doctor = getDoctor();
 
-    try (Connection con = DriverManager.getConnection(DBURL, USERID, PASSWORD);) {
+    try (Connection con = DriverManager.getConnection(DBURL, USERID, PASSWORD)) {
       PreparedStatement ps = con.prepareStatement("INSERT INTO doctor(doctorSSN, fName, lName, specialty, startDate) values(?, ?, ?, ?, ?)");
       ps.setString(1, doctor.getDoctorSSN());
       ps.setString(2, doctor.getfName());
@@ -95,7 +89,7 @@ public class DataGenerate {
 
       Patient patient = getPatient();
 
-      try (Connection con = DriverManager.getConnection(DBURL, USERID, PASSWORD);) {
+      try (Connection con = DriverManager.getConnection(DBURL, USERID, PASSWORD)) {
         PreparedStatement ps = con.prepareStatement("INSERT INTO patient(patientSSN, fName, lName, birthdate, street, city, state, zip, doctorSSN) values(?, ?, ?, ?, ?, ?, ?, ?, ?)",
           Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, patient.getPatientSSN());
@@ -226,7 +220,6 @@ public class DataGenerate {
   }
 
   public String SSNGenerator() {
-    String SSN;
     String SSNstart;
     String SSNmiddle;
     String SSNend;
@@ -287,8 +280,7 @@ public class DataGenerate {
   public static String[] getArray(String file)
     throws IOException {
 
-    List<String> listOfStrings
-      = new ArrayList<String>();
+    List<String> listOfStrings = new ArrayList<>();
 
     FileReader fr = new FileReader(file);
     String s = new String();
