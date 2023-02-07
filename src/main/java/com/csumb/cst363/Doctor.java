@@ -11,6 +11,15 @@ public class Doctor {
 	private String lName;
 	private String specialty;
 	private String startDate;  // YYYY-MM_DD
+	private String message;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public String getDoctorSSN() {
 		return doctorSSN;

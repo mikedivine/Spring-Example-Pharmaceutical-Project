@@ -14,6 +14,15 @@ public class Patient {
 	private String state;
 	private String zip;
 	private String doctorSSN;
+	private String message;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public String getPatientSSN() {
 		return patientSSN;
